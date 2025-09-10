@@ -1,6 +1,6 @@
 <?php
 include "bd/conexion.php";
-include "header.php";
+include "menu.php";
 //include "menu.php";
 
 $id = $_GET['id'] ?? 0;
@@ -26,58 +26,51 @@ $paquete = $result_paquete->fetch_assoc();
 </head>
 <body>
 
-<h2>Editar Cliente y Paquete</h2>
-
-<form class="formulario" action="procesar_edicion.php" method="POST" id="form-edicion">
-  <input type="hidden" name="id_cliente" value="<?= $cliente['id_cliente'] ?>">
-
-  <!-- ===== Datos del cliente ===== -->
-  <h3>Datos del Cliente</h3>
-  <div class="campo">
-    <label>Nombre</label>
+<div class="login-container">
+  <h2>Editar cliente y envío</h2>
+  <form class="formulario" method="POST" action="procesar_edicion.php" id="form-edicion">
+      <input type="hidden" name="id_cliente" value="<?= $cliente['id_cliente'] ?>">
+    <div class="input-group">
+      <i class="fa-solid fa-user"></i>
     <input type="text" name="nombre" value="<?= htmlspecialchars($cliente['nombre']) ?>" required>
-  </div>
+    </div>
 
-  <div class="campo">
-    <label>Correo</label>
+    <div class="input-group">
+      <i class="fa-solid fa-envelope"></i>
     <input type="email" name="correo" value="<?= htmlspecialchars($cliente['correo']) ?>" required>
-  </div>
+    </div>
 
-  <div class="campo">
-    <label>Teléfono</label>
+    <div class="input-group">
+      <i class="fa-solid fa-lock"></i>
     <input type="text" name="telefono" value="<?= htmlspecialchars($cliente['telefono'] ?? '') ?>">
-  </div>
+    </div>
 
-  <div class="campo">
-    <label>Dirección</label>
+     <div class="input-group">
+      <i class="fa-solid fa-lock"></i>
     <input type="text" name="direccion" value="<?= htmlspecialchars($cliente['direccion'] ?? '') ?>">
-  </div>
+    </div>
+    <h3>Datos del envío</h3>
+      <input type="hidden" name="id_paquete" value="<?= $paquete['id_paquete'] ?? '' ?>">
 
-  <!-- ===== Datos del paquete ===== -->
-  <h3>Datos del Paquete</h3>
-  <input type="hidden" name="id_paquete" value="<?= $paquete['id_paquete'] ?? '' ?>">
-
-  <div class="campo">
-    <label>Descripción</label>
+     <div class="input-group">
+      <i class="fa-solid fa-lock"></i>
     <input type="text" name="descripcion" value="<?= htmlspecialchars($paquete['descripcion'] ?? '') ?>">
-  </div>
-
-  <div class="campo">
-    <label>Peso (kg)</label>
+    </div>
+    <div class="input-group">
+      <i class="fa-solid fa-lock"></i>
     <input type="number" step="0.01" name="peso" value="<?= htmlspecialchars($paquete['peso'] ?? '') ?>">
-  </div>
-
-  <div class="campo">
-    <label>Estado</label>
-    <select name="estado">
+    </div>
+    <div class="input-group">
+      <i class="fa-solid fa-lock"></i>
+<select name="estado">
       <option value="Pendiente" <?= ($paquete['estado'] ?? '') == 'Pendiente' ? 'selected' : '' ?>>Pendiente</option>
       <option value="En tránsito" <?= ($paquete['estado'] ?? '') == 'En tránsito' ? 'selected' : '' ?>>En tránsito</option>
       <option value="Entregado" <?= ($paquete['estado'] ?? '') == 'Entregado' ? 'selected' : '' ?>>Entregado</option>
-    </select>
-  </div>
+    </select>    </div>
 
-  <button type="submit" class="btn-animado">Guardar Cambios</button>
-</form>
+    <button type="submit">Guardar cambios</button>
+  </form>
+</div>
 
 <script>
 document.getElementById("form-edicion").addEventListener("submit", function(e) {
@@ -99,4 +92,3 @@ document.getElementById("form-edicion").addEventListener("submit", function(e) {
 });
 </script>
 
-</b

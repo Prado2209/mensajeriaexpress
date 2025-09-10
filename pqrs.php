@@ -13,92 +13,103 @@ include 'bd/conexion.php';
   <link rel="stylesheet" href="css/estilos.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-      background: #f4f6f9;
-      margin: 0;
-      padding: 0;
-      display: block;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-    .navbar {
-      display: flex;
-    }
-    .form-container {
-      background: white;
-      margin: 0 auto;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      width: 400px;
-      animation: fadeIn 0.6s ease-in-out;
-    }
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #007BFF;
-    }
-    label {
-      font-weight: bold;
-      margin-top: 10px;
-      display: block;
-    }
-    input, select, textarea {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 14px;
-    }
-    button {
-      width: 100%;
-      padding: 12px;
-      background: #007BFF;
-      border: none;
-      color: white;
-      font-size: 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    button:hover {
-      background: #0056b3;
-    }
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(-20px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-  </style>
+    .input-group {
+  position: relative;
+  margin-top: 15px;
+}
+
+.input-group i {
+  position: absolute;
+  top: 50%;               /* posición vertical */
+  left: 12px;             /* distancia al borde */
+  transform: translateY(-50%); /* centra el icono en el alto del input */
+  font-size: 16px;
+  color: #555;
+  pointer-events: none;   /* el icono no bloquea el clic */
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea {
+  width: 100%;
+  padding: 12px 12px 12px 40px; /* deja espacio para el icono */
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  line-height: 1.4em;
+  box-sizing: border-box;
+}
+
+  .login-container {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    width: 350px;
+    margin: 40px auto;
+  }
+  h2 { text-align: center; color: #000000ff; }
+  .input-group { position: relative; margin-top: 15px; }
+  .input-group i {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: #555;
+  }
+  
+  button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    border: none;
+    background: #000000ff;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  button:hover { 
+    background: #32363aff; 
+  }
+
+</style>
 </head>
 <body>
-  <div class="form-container">
-    <h2>Formulario PQRS</h2>
-    <form action="procesar_pqrs.php" method="POST">
-      <label for="nombre">Nombre:</label>
-      <input type="text" id="nombre" name="nombre" required>
 
-      <label for="correo">Correo:</label>
-      <input type="email" id="correo" name="correo" required>
+<div class="login-container">
+  <h2>Formulario PQRS</h2>
+  <form action="procesar_pqrs.php" class="formulario" method="POST">
+    <div class="input-group">
+  <i class="fa-solid fa-user"></i>
+  <input type="text" name="nombre" placeholder="Nombre" required>
+</div>
 
-      <label for="tipo">Tipo:</label>
-      <select id="tipo" name="tipo" required>
-        <option value="">Seleccione</option>
-        <option value="Petición">Petición</option>
-        <option value="Queja">Queja</option>
-        <option value="Reclamo">Reclamo</option>
-        <option value="Sugerencia">Sugerencia</option>
-      </select>
+<div class="input-group">
+  <i class="fa-solid fa-envelope"></i>
+  <input type="email" name="correo" placeholder="Correo" required>
+</div>
 
-      <label for="mensaje">Mensaje:</label>
-      <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
+<div class="input-group">
+  <i class="fa-solid fa-list"></i>
+  <select id="tipo" name="tipo" required>
+    <option value="">Tipo de solicitud</option>
+    <option value="Petición">Petición</option>
+    <option value="Queja">Queja</option>
+    <option value="Reclamo">Reclamo</option>
+    <option value="Sugerencia">Sugerencia</option>
+  </select>
+</div>
 
-      <button type="submit">Enviar PQRS</button>
-    </form>
-  </div>
+<div class="input-group">
+  <i class="fa-solid fa-comment-dots"></i>
+  <textarea name="mensaje" required rows="4" placeholder="Agregue una breve redacción sobre su solicitud."></textarea>
+</div>
+
+    <button type="submit">Enviar PQRS</button>
+  </form>
+</div>
 </body>
 </html>
 

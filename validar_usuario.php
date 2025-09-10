@@ -4,11 +4,18 @@ include "bd/conexion.php";
 include "header.php";
 //include "menu.php";
 
+
+$_SESSION['usuario'] = $fila['usuario'];
+$_SESSION['correo']  = $fila['correo'];
+$_SESSION['rol']     = $fila['rol'];
+
+
 $usuario = $_POST['usuario'] ?? '';
 $password = $_POST['password'] ?? '';
+$correo = $_POST['correo'] ?? '';
 
 // Buscar por usuario o correo
-$sql = "SELECT * FROM usuarios WHERE usuario='$usuario' OR correo='$usuario'";
+$sql = "SELECT * FROM usuarios WHERE usuario='$usuario' OR correo='$correo'";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {

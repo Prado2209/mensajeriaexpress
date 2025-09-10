@@ -1,9 +1,8 @@
 <?php
-
 include "bd/conexion.php";
 include "menu.php";
 
-// Función para escapar y evitar NULL
+// Función para escapar
 function h($value) {
     return htmlspecialchars($value ?? '', ENT_QUOTES, 'UTF-8');
 }
@@ -22,27 +21,134 @@ $result = $conn->query($sql);
   <meta charset="UTF-8">
   <title>Listado de Clientes y Paquetes</title>
   <link rel="stylesheet" href="css/estilos.css">
-</head>
-<style>
-  .EditarBotonAcciones {
-      display: block;
-      color: #000000ff;
-      border: none;
-      padding: 3px 5px;
-      font-size: 15px;
-      font-weight: bold;
-      cursor: pointer;
-      width: 100%;
-      position: relative;
-      overflow: hidden;
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f6fa;
+      margin: 0;
+      padding: 20px;
+    }
 
-}
-</style>
+    h2 {
+      text-align: center;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    .search-box {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .search-box input {
+      width: 50%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0 auto;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background: #000000ff;
+      color: white;
+      font-size: 14px;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    td {
+      font-size: 14px;
+      color: #333;
+    }
+
+    .acciones {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .acciones a {
+      display: block;
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+
+    .acciones a.EditarBotonAcciones {
+      background: #007BFF;
+      color: white;
+    }
+
+    .acciones a.EditarBotonAcciones:hover {
+      background: #0056b3;
+    }
+
+    .acciones a.EliminarBotonAcciones {
+      background: #FF4D4D;
+      color: white;
+    }
+
+    .acciones a.EliminarBotonAcciones:hover {
+      background: #cc0000;
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .search-box input { width: 90%; }
+      table { font-size: 12px; }
+      th, td { padding: 8px; }
+    }
+
+    @media (max-width: 768px) {
+      table, thead, tbody, th, td, tr { display: block; }
+      th { display: none; }
+      td {
+        padding: 10px;
+        text-align: right;
+        position: relative;
+      }
+      td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        font-weight: bold;
+        color: #555;
+        text-align: left;
+      }
+    }
+  </style>
+</head>
 <body>
 
 <h2>Listado de Clientes y Paquetes</h2>
 
-<table>
+<div class="search-box">
+  <input type="text" id="searchInput" placeholder="🔍 Buscar por nombre, correo, ciudad, estado...">
+</div>
+
+<table id="clientesTable">
   <tr>
     <th>ID Cliente</th>
     <th>Nombre</th>
@@ -51,8 +157,8 @@ $result = $conn->query($sql);
     <th>Dirección</th>
     <th>ID Paquete</th>
     <th>Descripción</th>
-    <th>Dirección Ciudad Origen</th>
-    <th>Dirección Ciudad Destino</th>
+    <th>Ciudad Origen</th>
+    <th>Ciudad Destino</th>
     <th>Peso (kg)</th>
     <th>Estado</th>
     <th>Fecha Envío</th>
@@ -62,33 +168,29 @@ $result = $conn->query($sql);
 <?php if ($result && $result->num_rows > 0): ?>
   <?php while($row = $result->fetch_assoc()): ?>
     <tr>
-      <td><?= h($row['id_cliente']) ?></td>
-      <td><?= h($row['nombre']) ?></td>
-      <td><?= h($row['correo']) ?></td>
-      <td><?= h($row['telefono']) ?></td>
-      <td><?= h($row['direccion']) ?></td>
-      <td><?= h($row['id_paquete']) ?></td>
-      <td><?= h($row['descripcion']) ?></td>
-      <td><?= h($row['ciudad_origen']) ?></td>
-      <td><?= h($row['ciudad_destino']) ?></td>
-      <td><?= h($row['peso']) ?></td>
-      <td><?= h($row['estado']) ?></td>
-      <td><?= h($row['fecha_envio']) ?></td>
+      <td data-label="ID Cliente"><?= h($row['id_cliente']) ?></td>
+      <td data-label="Nombre"><?= h($row['nombre']) ?></td>
+      <td data-label="Correo"><?= h($row['correo']) ?></td>
+      <td data-label="Teléfono"><?= h($row['telefono']) ?></td>
+      <td data-label="Dirección"><?= h($row['direccion']) ?></td>
+      <td data-label="ID Paquete"><?= h($row['id_paquete']) ?></td>
+      <td data-label="Descripción"><?= h($row['descripcion']) ?></td>
+      <td data-label="Ciudad Origen"><?= h($row['ciudad_origen']) ?></td>
+      <td data-label="Ciudad Destino"><?= h($row['ciudad_destino']) ?></td>
+      <td data-label="Peso"><?= h($row['peso']) ?></td>
+      <td data-label="Estado"><?= h($row['estado']) ?></td>
+      <td data-label="Fecha Envío"><?= h($row['fecha_envio']) ?></td>
       <td class="acciones">
-        <a class="EditarBotonAcciones" href="editar_cliente.php?id=<?= urlencode($row['id_cliente']) ?>">Editar</a>
-        <a class="EditarBotonAcciones" href="#" onclick="confirmarEliminar(<?= $row['id_cliente'] ?>)">Eliminar</a>
+        <a class="EditarBotonAcciones" href="editar_cliente.php?id=<?= urlencode($row['id_cliente']) ?>">✏️ Editar</a>
+        <a class="EliminarBotonAcciones" href="#" onclick="confirmarEliminar(<?= $row['id_cliente'] ?>)">🗑 Eliminar</a>
       </td>
     </tr>
   <?php endwhile; ?>
 <?php else: ?>
-  <tr><td colspan="11">No hay registros</td></tr>
+  <tr><td colspan="13">⚠️ No hay registros</td></tr>
 <?php endif; ?>
-
 </table>
 
-</body>
-</html>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 function confirmarEliminar(id) {
   Swal.fire({
@@ -106,5 +208,18 @@ function confirmarEliminar(id) {
     }
   })
 }
+
+// Filtro de búsqueda en tiempo real
+document.getElementById("searchInput").addEventListener("keyup", function() {
+  let filter = this.value.toLowerCase();
+  let rows = document.querySelectorAll("#clientesTable tr:not(:first-child)");
+
+  rows.forEach(row => {
+    let text = row.innerText.toLowerCase();
+    row.style.display = text.includes(filter) ? "" : "none";
+  });
+});
 </script>
 
+</body>
+</html>

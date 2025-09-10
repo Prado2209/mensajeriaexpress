@@ -1,0 +1,5 @@
+--INSPECTIA - CALIDAD DEL SOFTWARE APLICADA A LA MENSAJERIA EXPRESS--
+
+Pasos para desplegar el sistema:
+
+1. 

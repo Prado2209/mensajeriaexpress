@@ -9,7 +9,7 @@
  </style>
   </main>
   <footer>
-    <p>© 2025 Sistema de Mensajería Expréss | Contacto: soporte@inspectia.com | Tel: 3123456789</p>
+    <p>© 2025 INSPECTIA | Sistema de Mensajería Expréss | Contacto: soporte@inspectia.com | Tel: 3123456789</p>
   </footer>
 </body>
 </html>

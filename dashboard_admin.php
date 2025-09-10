@@ -14,7 +14,7 @@
       padding: 0;
     }
     .container {
-      max-width: 800px;
+      max-width: 1000px;
       margin: 60px auto;
       text-align: center;
     }
@@ -23,16 +23,16 @@
       margin-bottom: 30px;
     }
     .opciones {
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
       justify-content: center;
-      gap: 40px;
     }
     .card {
       background: white;
-      padding: 30px;
+      padding: 30px 20px;
       border-radius: 12px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      width: 220px;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
       cursor: pointer;
     }
@@ -40,9 +40,18 @@
       transform: translateY(-5px);
       box-shadow: 0 8px 16px rgba(0,0,0,0.2);
     }
+    .card img {
+  width: 80px;   /* mismo tamaño para todos */
+  height: 80px;
+  display: block;
+  margin: 0 auto 10px auto; /* centrado y espacio inferior */
+  object-fit: contain; /* asegura que no se deforme */
+}
+
+
     .card a {
       text-decoration: none;
-      color: #007BFF;
+      color: #000000ff;
       font-size: 18px;
       font-weight: bold;
       display: block;
@@ -76,27 +85,43 @@
   <h1>Bienvenido, <?= $_SESSION['usuario'] ?> 👋</h1>
   <p class="user-info">Selecciona una opción para continuar</p>
 
-  <div class="opciones">
-    <div class="card">
-      <img src="https://img.icons8.com/ios-filled/100/007BFF/add-user-group-man-man.png" alt="Registrar">
-      <a href="guardar_cliente.php">Registrar Cliente</a>
-    </div>
-    <div class="card">
-      <img src="https://img.icons8.com/ios-filled/100/007BFF/conference.png" alt="Listar">
-      <a href="listar_clientes.php">Listar Clientes</a>
-    </div>
-    <div class="card">
-      <img src="https://img.icons8.com/?size=100&id=IchwUEgoxNcw&format=png&color=000000" alt="Listar">
-      <a href="listar_pqrs.php">Listar PQRS</a>
-    </div>
+<div class="opciones">
+  <!-- Nuevo Envío -->
+  <div class="card">
+    <img src="https://img.icons8.com/ios-filled/100/000000/add-user-group-man-man.png" alt="Registrar">
+    <a href="guardar_cliente.php">Nuevo Envío</a>
   </div>
+
+  <!-- Listar Envíos -->
+  <div class="card">
+    <img src="https://img.icons8.com/ios-filled/100/000000/conference.png" alt="Listar">
+    <a href="listar_clientes.php">Listar Envíos</a>
+  </div>
+
+  <!-- Listar PQRS -->
+  <div class="card">
+    <img src="https://img.icons8.com/ios-filled/100/000000/faq.png" alt="PQRS">
+    <a href="listar_pqrs.php">Listar PQRS</a>
+  </div>
+
+  <!-- Perfil de Usuario -->
+  <div class="card">
+    <img src="https://img.icons8.com/ios-filled/100/000000/user-male-circle.png" alt="Perfil">
+    <a href="perfil_usuario.php">Mi Perfil</a>
+  </div>
+
+  <!-- Historial de Envíos -->
+  <div class="card">
+    <img src="https://img.icons8.com/ios-filled/100/000000/order-history.png" alt="Historial">
+    <a href="historial_envios.php">Historial</a>
+  </div>
+</div>
+
 </div>
 
 </body>
 </html>
 
 <?php
-
 include "footer.php";
-
 ?>

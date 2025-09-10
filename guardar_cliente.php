@@ -4,58 +4,65 @@ include "menu.php";
 
 ?>
 <link rel="stylesheet" href="css/estilos.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<h2 class="titulo-form">Registro de Cliente y Paquete</h2>
+<div class="login-container">
+  <h2>Registrar cliente y envío</h2>
+  <form action="procesar_registro.php" class="formulario" method="POST">
+    <div class="input-group">
+      <i class="fa-solid fa-user"></i>
+      <input type="text" name="nombre" placeholder="Nombre del cliente" required value="<?= isset($_POST['nombre']) ? h($_POST['nombre']) : '' ?>">
+    </div>
 
-<form action="procesar_registro.php" method="POST" class="formulario">
-  <div class="campo">
-    <label>Nombre</label>
-    <input type="text" name="nombre" required>
-  </div>
+    <div class="input-group">
+      <i class="fa-solid fa-envelope"></i>
+      <input type="email" name="correo" placeholder="Correo electrónico" required value="<?= isset($_POST['correo']) ? h($_POST['correo']) : '' ?>">
+    </div>
 
-  <div class="campo">
-    <label>Correo</label>
-    <input type="email" name="correo" required>
-  </div>
+    <div class="input-group">
+      <i class="fa-solid fa-phone"></i>
+      <input type="tel" name="telefono" placeholder="Número de teléfono" required value="<?= isset($_POST['telefono']) ? h($_POST['telefono']) : '' ?>">
+    </div>
 
-  <div class="campo">
-    <label>Teléfono</label>
-    <input type="text" name="telefono">
-  </div>
-
-  <div class="campo">
-    <label>Dirección</label>
-    <input type="text" name="direccion">
-  </div>
-
-  <h3>Datos del Paquete</h3>
-
-  <div class="campo">
-    <label>Descripción</label>
-    <input type="text" name="descripcion">
-  </div>
-  <div class="campo">
-    <label>Dirección Ciudad Origen</label>
-    <input type="text" name="ciudad_origen">
-  </div>
-  <div class="campo">
-    <label>Dirección Ciudad Destino</label>
-    <input type="text" name="ciudad_destino">
-  <div class="campo">
-    <label>Peso (kg)</label>
-    <input type="number" step="0.01" name="peso">
-  </div>
-  <div class="campo">
-    <label>Estado</label>
-    <select name="tipo_registro" required>
+    <div class="input-group">
+      <i class="fa-solid fa-street-view"></i>
+      <input type="text" name="direccion" placeholder="Dirección de residencia" required>
+    </div>
+      <h2>Datos del envío</h2>
+    <div class="input-group">
+      <i class="fa-solid fa-pen"></i>
+      <input type="text" name="descripcion" placeholder="Descripción del envío" required>
+    </div>
+        <div class="input-group">
+      <i class="fa-solid fa-street-view"></i>
+      <input type="text" name="origen" placeholder="Dirección ciudad de origen" required>
+    </div>
+        <div class="input-group">
+      <i class="fa-solid fa-street-view"></i>
+      <input type="text" name="destino" placeholder="Dirección ciudad de destino" required>
+    </div>
+    <div class="input-group">
+      <i class="fa-solid fa-weight-scale"></i>
+      <input type="number" name="peso" step="0.01" placeholder="Peso en kilogramos" required>
+    </div>
+    <div class="input-group">
+      <i class="fa-solid fa-bars"></i>
+      <select name="tipo_registro" required>
           <option value="">-- Selecciona tipo --</option>
           <option value="Enviado">Enviado</option>
           <option value="En Tránsito">En Tránsito</option>
           <option value="Entregado">Entregado</option>
         </select>
-  </div>
+    </div>
 
-  <button type="submit" class="btn-animado">Registrar</button>
-</form>
 
-<?php include "footer.php"; ?>
+
+    <button type="submit">Registrar</button>
+  </form>
+</div>
+
+<?php 
+
+include "footer.php"; 
+
+?>

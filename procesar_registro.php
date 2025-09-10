@@ -26,7 +26,7 @@ if ($check && $check->num_rows > 0) {
               confirmButtonColor: '#d33',
               confirmButtonText: 'OK'
             }).then(() => {
-              window.location.href = 'index.php';
+              window.location.href = 'guardar_cliente.php';
             });
           </script>";
     exit;

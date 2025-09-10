@@ -15,10 +15,10 @@ $result = $conn->query($sql);
   <style>
     body { font-family: Arial, sans-serif; background: #f4f6f9; margin: 0; padding: 0; }
     .container { max-width: 1100px; margin: 50px auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-    h2 { text-align: center; color: #007BFF; margin-bottom: 20px; }
+    h2 { text-align: center; color: #000000ff; margin-bottom: 20px; }
     table { width: 100%; border-collapse: collapse; margin-top: 20px; }
     table, th, td { border: 1px solid #ddd; }
-    th { background: #007BFF; color: white; padding: 12px; text-align: center; }
+    th { background: #000000ff; color: white; padding: 12px; text-align: center; }
     td { padding: 10px; text-align: center; }
     tr:nth-child(even) { background: #f9f9f9; }
     tr:hover { background: #eef6ff; }
@@ -30,7 +30,6 @@ $result = $conn->query($sql);
   </style>
 </head>
 <body>
-
 
 <div class="container">
   <h2>Listado de PQRS</h2>
